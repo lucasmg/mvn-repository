@@ -1,0 +1,133 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>braUtil</groupId>
+    <artifactId>BrasilUtils</artifactId>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+
+    <name>BrasilUtils</name>
+    <description>
+        API voltada para facilitar cálculos,conversões e validações, focando principalmente 
+        das particularidades dos padrões brasileiras.
+    </description>
+    <!--    <scm>
+        <connection>scm:git@github.com:lucasmg/BrasilUtils.git</connection>
+        <url>scm:git@github.com:lucasmg/BrasilUtils.git</url>
+        <developerConnection>scm:git@github.com:lucasmg/BrasilUtils.git</developerConnection>
+    </scm>-->
+    <developers>
+        <developer>
+            <name>Lucas Mota Guedes</name>
+            <email>mota.guedes@gmail.com</email>
+        </developer>
+    </developers>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceJavaCoding>1.7</project.build.sourceJavaCoding>
+        <project.build.mavenRepoTag>mvn-repo</project.build.mavenRepoTag>
+        <project.build.mavenLocalRepo>${project.build.directory}/${project.build.mavenRepoTag}</project.build.mavenLocalRepo>
+        <project.build.repositoryName>mvn-repository</project.build.repositoryName>
+        <project.build.repositoryOwner>lucasmg</project.build.repositoryOwner>
+        <github.global.server>github</github.global.server>
+        
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${project.build.sourceJavaCoding}</source>
+                    <target>${project.build.sourceJavaCoding}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.7</version>
+                <configuration>
+                    <message>Código Maven da Versão ${project.version}</message>  <!-- git commit message -->
+                    <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                    <outputDirectory>${project.build.mavenLocalRepo}</outputDirectory> <!-- matches distribution management repository url above -->
+                    <branch>refs/heads/${project.build.mavenRepoTag}</branch>                       <!-- remote branch name -->
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>${project.build.repositoryName}</repositoryName>  <!-- github repo name -->
+                    <repositoryOwner>${project.build.repositoryOwner}</repositoryOwner>    <!-- github username  -->
+                </configuration>
+                <executions>
+                    <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <defaultVersion>${project.version}</defaultVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <!--            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>-->
+            <!--            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>2.7.1</version>
+                <configuration>
+                    <source>1.7</source>
+                    <targetJdk>1.7</targetJdk>
+                    <linkXRef>false</linkXRef>
+                </configuration>
+            </plugin>-->
+        </plugins>
+        <resources>
+            <resource>
+                <directory>resource</directory>
+            </resource>
+        </resources>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Temporary Staging Repository</name>
+            <url>file://${project.build.mavenLocalRepo}</url>
+        </repository>
+    </distributionManagement>
+</project>
